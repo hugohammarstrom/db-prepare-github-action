@@ -2,11 +2,20 @@ name: "DB-prepare"
 description: "Prepare wordpress databases"
 author: "Hugo Hammarström"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
+  config_path:
+    description: "Path to config file to use"
+    default: "db-prepare-config.yaml"
+  host:
+    description: "Host to export db from"
+    default: ""
+  installation_path:
+    description: "Path on host where wordpress is installed"
+    default: "/var/www/html"
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.config_path }}
+    - ${{ inputs.host }}
+    - ${{ inputs.installation_path }}
+    - ${{ secrets.SSH_KEY }}
