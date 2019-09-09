@@ -1,0 +1,12 @@
+name: "DB-prepare"
+description: "Prepare wordpress databases"
+author: "Hugo Hammarström"
+inputs:
+  myInput:
+    description: "Input to use"
+    default: "world"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.myInput }}
