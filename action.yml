@@ -24,10 +24,6 @@ inputs:
     description: "Google cloud storage bucket name"
     required: true
     default: ""
-  service_account_email:
-    description: "Google cloud storage bucket name"
-    required: true
-    default: ""
 runs:
   using: "docker"
   image: "Dockerfile"
