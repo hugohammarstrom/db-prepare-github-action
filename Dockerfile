@@ -1,6 +1,6 @@
 FROM node:12.10.0-alpine
 
-
+RUN RUN curl -sSL https://sdk.cloud.google.com | bash
 
 RUN apk upgrade --update \
   && apk add bash unzip curl ca-certificates \

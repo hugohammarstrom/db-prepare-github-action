@@ -10,13 +10,24 @@ inputs:
     default: "db-prepare-config.yaml"
   ssh_host:
     description: "Host to export db from"
+    required: true
     default: ""
   ssh_user:
-    description: "Host to export db from"
+    description: "User to export db from"
+    required: true
     default: ""
   installation_path:
     description: "Path on host where wordpress is installed"
+    required: true
     default: "/var/www/html"
+  bucket_name:
+    description: "Google cloud storage bucket name"
+    required: true
+    default: ""
+  service_account_email:
+    description: "Google cloud storage bucket name"
+    required: true
+    default: ""
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -25,3 +36,5 @@ runs:
     - ${{ inputs.ssh_host }}
     - ${{ inputs.ssh_user }}
     - ${{ inputs.installation_path }}
+    - ${{ inputs.bucket_name }}
+    - ${{ inputs.service_account_email }}

@@ -8,9 +8,12 @@ config_file=$1
 ssh_host=$2
 ssh_user=$3
 installation_path=$4
+bucket_name=$5
+service_account_email=$6
 
 version=$(yq read $config_file version)
 dumpfile=$(yq read $config_file dumpfile)
+output_file=$(yq read $config_file output_file)
 
 echo "\n"
 echo "------------------------------------------------"
@@ -19,6 +22,8 @@ echo "config_file:" $config_file
 echo "ssh_host:" $ssh_host
 echo "ssh_user:" $ssh_user
 echo "installation_path:" $installation_path
+echo "bucket_name:" $bucket_name
+echo "service_account_email:" $service_account_email
 echo "version:" $version
 echo "dumpfile:" $dumpfile
 
@@ -35,6 +40,9 @@ eval $(ssh-agent)
 
 rm -f ssh_key
 echo "$ssh_key" > ssh_key
+
+(echo $google_cloud_key | base64 -D) > service_account_key.json
+
 chmod 600 ssh_key
 
 ssh-add ssh_key
@@ -53,3 +61,6 @@ ssh -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@$
 mv db-prepare-dump.sql "$dumpfile"
 
 db-prepare --config $config_file
+
+gcloud auth activate-service-account --key-file=service_account_key.json
+gsutil cp ${output_file} gs://${bucket_name}/
