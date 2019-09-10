@@ -25,7 +25,7 @@ chmod 600 "$SSH_PATH/known_hosts"
 
 eval $(ssh-agent)
 
-ssh_key=$(echo $ssh_key | openssl enc -base64 -d)
+ssh_key=$(echo $ssh_key | base64 -d)
 rm -f ssh_key
 echo $ssh_key > ssh_key
 chmod 600 ssh_key
