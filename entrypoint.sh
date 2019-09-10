@@ -28,11 +28,11 @@ eval $(ssh-agent)
 ssh_key=$(echo $ssh_key | openssl enc -base64 -d)
 rm -f ssh_key
 echo $ssh_key > ssh_key
-chmod 400 ssh_key
-ssh-keyscan -t rsa $ssh_host -f ./ssh_key >> "$SSH_PATH/known_hosts"
+chmod 600 ssh_key
+ssh-keyscan -t rsa ${ssh_host} -f ./ssh_key >> "$SSH_PATH/known_hosts"
 
-ssh -i ./ssh_key $ssh_user@$ssh_host wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
-scp -i ./ssh_key ssh_user@$ssh_host:db-prepare-dump.sql $dumpfile
-ssh -i ./ssh_key ssh_user@$ssh_host rm db-prepare-dump.sql || true
+ssh -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@${ssh_host} wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
+scp -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@${ssh_host}:db-prepare-dump.sql $dumpfile
+ssh -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@${ssh_host} rm db-prepare-dump.sql || true
 
 db-prepare --config $config_file
