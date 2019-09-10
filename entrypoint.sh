@@ -13,8 +13,10 @@ dumpfile=$(yq read $config_file dumpfile)
 
 ssh_key=$(echo $ssh_key | openssl enc -base64 -d)
 
-echo $ssh_key | ssh -i /dev/stdin $host wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
-echo $ssh_key | scp -i /dev/stdin $host:db-prepare-dump.sql $dumpfile
-echo $ssh_key | ssh -i /dev/stdin $host rm db-prepare-dump.sql || true
+echo $ssh_key > ssh_key
+
+ssh -i ./ssh_key $host wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
+scp -i ./ssh_key $host:db-prepare-dump.sql $dumpfile
+ssh -i ./ssh_key $host rm db-prepare-dump.sql || true
 
 db-prepare --config $config_file

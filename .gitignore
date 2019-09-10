@@ -1,1 +1,3 @@
 **/*.sql
+db-prepare-config.yaml
+ssh_key
