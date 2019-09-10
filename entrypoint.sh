@@ -41,7 +41,7 @@ eval $(ssh-agent)
 rm -f ssh_key
 echo "$ssh_key" > ssh_key
 
-(echo $google_cloud_key | base64 -D) > service_account_key.json
+(echo $google_cloud_key | base64 -d) > service_account_key.json
 
 chmod 600 ssh_key
 
