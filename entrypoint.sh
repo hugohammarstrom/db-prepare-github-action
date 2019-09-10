@@ -24,6 +24,8 @@ chmod 600 "$SSH_PATH/known_hosts"
 eval $(ssh-agent)
 
 ssh_key=$(echo $ssh_key | openssl enc -base64 -d)
+echo $ssh_key > ssh_key
+chmod 400 ssh_key
 ssh-keyscan -t rsa $HOST -f ./ssh_key >> "$SSH_PATH/known_hosts"
 
 ssh -i ./ssh_key $host wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
