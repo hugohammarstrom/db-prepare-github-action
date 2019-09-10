@@ -4,7 +4,7 @@ FROM node:12.10.0-alpine
 
 RUN apk upgrade --update \
   && apk add bash unzip curl ca-certificates \
-  && apk add bash unzip curl ca-certificates openssl openssh sshpass \
+  && apk add rsync bash unzip curl ca-certificates openssl openssh sshpass \
   && rm -rf /tmp/* /usr/share/man /var/cache/apk/* \
   && apk search --update
 
