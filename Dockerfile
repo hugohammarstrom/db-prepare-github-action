@@ -6,5 +6,7 @@ RUN wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download
 RUN chmod +x /usr/local/bin/yq
 
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 
 ENTRYPOINT ["/entrypoint.sh"]
