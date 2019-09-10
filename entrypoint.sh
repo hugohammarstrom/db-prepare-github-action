@@ -11,7 +11,7 @@ echo "installation_path:" $installation_path
 version=$(yq read $config_file version)
 dumpfile=$(yq read $config_file dumpfile)
 
-ssh_key=$(echo $ssh_key | base64 -D)
+ssh_key=$(echo $ssh_key | base64 --decode)
 
 
 
