@@ -3,7 +3,6 @@
 config_file=$1
 host=$2
 installation_path=$3
-ssh_key=$4
 
 version=$(yq read $config_file version)
 dumpfile=$(yq read $config_file dumpfile)

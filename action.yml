@@ -1,6 +1,9 @@
 name: "DB-prepare"
 description: "Prepare wordpress databases"
 author: "Hugo Hammarström"
+branding:
+  icon: database
+  color: orange
 inputs:
   config_path:
     description: "Path to config file to use"
@@ -14,8 +17,9 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  env:
+    ssh_key: ${{ secrets.SSH_KEY }}
   args:
     - ${{ inputs.config_path }}
     - ${{ inputs.host }}
     - ${{ inputs.installation_path }}
-    - ${{ secrets.SSH_KEY }}
