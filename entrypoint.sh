@@ -15,6 +15,14 @@ echo "installation_path:" $installation_path
 version=$(yq read $config_file version)
 dumpfile=$(yq read $config_file dumpfile)
 
+mkdir -p "$SSH_PATH"
+touch "$SSH_PATH/known_hosts"
+
+chmod 700 "$SSH_PATH"
+chmod 600 "$SSH_PATH/known_hosts"
+
+eval $(ssh-agent)
+
 ssh_key=$(echo $ssh_key | openssl enc -base64 -d)
 ssh-keyscan -t rsa $HOST -f ./ssh_key >> "$SSH_PATH/known_hosts"
 
