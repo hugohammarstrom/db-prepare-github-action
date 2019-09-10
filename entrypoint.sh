@@ -26,7 +26,7 @@ chmod 600 "$SSH_PATH/known_hosts"
 eval $(ssh-agent)
 
 rm -f ssh_key
-echo $ssh_key > ssh_key
+echo "$ssh_key" > ssh_key
 chmod 600 ssh_key
 
 ssh-add ssh_key
