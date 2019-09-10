@@ -33,7 +33,7 @@ ssh-add ssh_key
 ssh-keyscan -t rsa ${ssh_host} -f ./ssh_key >> "$SSH_PATH/known_hosts"
 
 ssh -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@${ssh_host} wp db export --path=${installation_path} db-prepare-dump.sql --allow-root
-scp -i ./ssh_key -o StrictHostKeyChecking=no -tt -p ${PORT:-22} ${ssh_user}@${ssh_host}:db-prepare-dump.sql $dumpfile
+scp -i ./ssh_key -o StrictHostKeyChecking=no -p ${PORT:-22} ${ssh_user}@${ssh_host}:db-prepare-dump.sql $dumpfile
 ssh -i ./ssh_key -o StrictHostKeyChecking=no -A -tt -p ${PORT:-22} ${ssh_user}@${ssh_host} rm db-prepare-dump.sql || true
 
 db-prepare --config $config_file
