@@ -8,7 +8,10 @@ inputs:
   config_path:
     description: "Path to config file to use"
     default: "db-prepare-config.yaml"
-  host:
+  ssh_host:
+    description: "Host to export db from"
+    default: ""
+  ssh_user:
     description: "Host to export db from"
     default: ""
   installation_path:
@@ -19,5 +22,6 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.config_path }}
-    - ${{ inputs.host }}
+    - ${{ inputs.ssh_host }}
+    - ${{ inputs.ssh_user }}
     - ${{ inputs.installation_path }}
