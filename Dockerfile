@@ -8,6 +8,7 @@ RUN apk upgrade --update \
   && apk search --update
 
 RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
 
 RUN npm i -g @hugohammarstrom/db-prepare
 

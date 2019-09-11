@@ -62,5 +62,5 @@ mv db-prepare-dump.sql "$dumpfile"
 
 db-prepare --config $config_file
 
-gcloud auth activate-service-account --key-file=service_account_key.json
+gsutil auth activate-service-account --key-file=service_account_key.json
 gsutil cp ${output_file} gs://${bucket_name}/
